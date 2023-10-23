@@ -27,4 +27,17 @@ class Perceptron:
         pass
 
     def back_propagation(self, x, y):
-        pass
+        current_g = sigmoid(np.dot(self.v, x) + self.q)
+        current_y = sigmoid(np.dot(self.w, current_g) + self.t)
+
+        delta_y = 2*(current_y-y) * sigmoid(current_y, deriv=True)
+
+        nabla_v = np.dot(delta_y, current_g.T)
+        nabla_q = delta_y
+
+        delta_g = np.dot(self.w.T, delta_y) * sigmoid(current_g, deriv=True)
+
+        nabla_w = np.dot(delta_g, x.T)
+        nabla_t = delta_g
+
+        return (nabla_v, nabla_w, nabla_q, nabla_t)
