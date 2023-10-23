@@ -1,5 +1,11 @@
 import numpy as np
 
+def sigmoid(x, deriv=False):
+    if deriv is True:
+        return sigmoid(x) / (1-sigmoid(x))
+
+    return 1 / (1+np.exp(-x))
+
 class Perceptron:
     def __init__(self, x, g, y):
         self.v = 2*np.random.random((g, x)) - 1
