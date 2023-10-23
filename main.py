@@ -1,3 +1,5 @@
+import network
+
 def main():
     pass
 
