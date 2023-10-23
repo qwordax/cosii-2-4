@@ -23,5 +23,8 @@ class Perceptron:
 
         return y
 
+    def gradient_descent(self, training_data):
+        pass
+
     def back_propagation(self, x, y):
         pass
