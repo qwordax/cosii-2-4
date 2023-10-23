@@ -11,8 +11,14 @@ class Perceptron:
         self.v = 2*np.random.random((g, x)) - 1
         self.w = 2*np.random.random((y, g)) - 1
 
-        self.q = 2*np.random.random((1, g)) - 1
-        self.t = 2*np.random.random((1, y)) - 1
+        self.q = 2*np.random.random((g, 1)) - 1
+        self.t = 2*np.random.random((y, 1)) - 1
 
         self.alpha = alpha
         self.beta = beta
+
+    def feed_forward(self, x):
+        g = sigmoid(np.dot(self.v, x) + self.q)
+        y = sigmoid(np.dot(self.w, g) + self.t)
+
+        return y
