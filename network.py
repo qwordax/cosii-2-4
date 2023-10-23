@@ -22,3 +22,6 @@ class Perceptron:
         y = sigmoid(np.dot(self.w, g) + self.t)
 
         return y
+
+    def back_propagation(self, x, y):
+        pass
