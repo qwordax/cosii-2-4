@@ -24,7 +24,28 @@ class Perceptron:
         return y
 
     def gradient_descent(self, training_data):
-        pass
+        nabla_v = np.zeros(self.v.shape)
+        nabla_w = np.zeros(self.w.shape)
+
+        nabla_q = np.zeros(self.q.shape)
+        nabla_t = np.zeros(self.t.shape)
+
+        n = len(training_data)
+
+        for x, y in training_data:
+            v, w, q, t = self.back_propagation(x, y)
+
+            nabla_v += v
+            nabla_w += w
+
+            nabla_q += q
+            nabla_t += t
+
+        self.v -= self.alpha/n * nabla_v
+        self.q -= self.alpha/n * nabla_q
+
+        self.w -= self.beta/n * nabla_w
+        self.t -= self.beta/n * nabla_t
 
     def back_propagation(self, x, y):
         current_g = sigmoid(np.dot(self.v, x) + self.q)
@@ -32,12 +53,12 @@ class Perceptron:
 
         delta_y = 2*(current_y-y) * sigmoid(current_y, deriv=True)
 
-        nabla_v = np.dot(delta_y, current_g.T)
-        nabla_q = delta_y
+        nabla_w = np.dot(delta_y, current_g.T)
+        nabla_t = delta_y
 
         delta_g = np.dot(self.w.T, delta_y) * sigmoid(current_g, deriv=True)
 
-        nabla_w = np.dot(delta_g, x.T)
-        nabla_t = delta_g
+        nabla_v = np.dot(delta_g, x.T)
+        nabla_q = delta_g
 
         return (nabla_v, nabla_w, nabla_q, nabla_t)
