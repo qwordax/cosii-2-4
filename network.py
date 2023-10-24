@@ -7,23 +7,41 @@ def sigmoid(x, deriv=False):
     return 1 / (1+np.exp(-x))
 
 class Perceptron:
-    def __init__(self, n, h, m, alpha=0.1, beta=0.1):
+    """
+    A class representing a three-layer perceptron.
+    """
+    def __init__(self, n, h, m, beta=0.1, alpha=0.1):
+        """
+        Initializes a `Perceptron` instance with the following parameters:
+
+        - `n` — number of input neurons;
+        - `h` — number of hidden neurons;
+        - `m` — number of output neurons;
+        - `beta` — convergence step for the hidden layer;
+        - `alpha` — convergence step for the output layer.
+        """
         self.v = 2*np.random.random((h, n)) - 1
         self.q = 2*np.random.random((h, 1)) - 1
 
         self.w = 2*np.random.random((m, h)) - 1
         self.t = 2*np.random.random((m, 1)) - 1
 
-        self.alpha = alpha
         self.beta = beta
+        self.alpha = alpha
 
     def feed_forward(self, x):
+        """
+        Returns the response of the perceptron to `x`.
+        """
         g = sigmoid(np.dot(self.v, x) + self.q)
         y = sigmoid(np.dot(self.w, g) + self.t)
 
         return y
 
     def gradient_descent(self, training_data):
+        """
+        Computes negative gradient and applies it to the weights and biases of the perceptron using the stochastic gradient descent method.
+        """
         nabla_w = np.zeros(self.w.shape)
         nabla_t = np.zeros(self.t.shape)
 
@@ -48,6 +66,10 @@ class Perceptron:
         self.q -= self.beta * nabla_q/n
 
     def back_propagation(self, x, y):
+        """
+        Computes gradient components of `w`, `t`, `v` and `q` using the back
+        propagation method.
+        """
         current_g = sigmoid(np.dot(self.v, x) + self.q)
         current_y = sigmoid(np.dot(self.w, current_g) + self.t)
 
