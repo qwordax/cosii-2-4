@@ -3,7 +3,10 @@ import numpy as np
 from ideal import TWO, THREE, FOUR, FIVE, SEVEN
 from network import Perceptron
 
-def noize(image, chance):
+def noise(image, chance):
+    """
+    Returns a noisy `image` determined by `chance`.
+    """
     result = image.copy()
 
     for i, x in np.ndenumerate(result):
@@ -13,6 +16,9 @@ def noize(image, chance):
     return result
 
 def binarize(image):
+    """
+    Implements an `image` binarization.
+    """
     result = image.copy()
 
     for i, x in np.ndenumerate(result):
@@ -21,6 +27,9 @@ def binarize(image):
     return result.reshape((1, result.size))
 
 def main():
+    """
+    The main function of the program.
+    """
     percept = Perceptron(36, 20, 5)
 
     training_data = [
