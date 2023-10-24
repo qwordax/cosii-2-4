@@ -23,5 +23,13 @@ def binarize(image):
 def main():
     percept = Perceptron(36, 20, 5)
 
+    training_data = [
+        (binarize(TWO),   np.array([[1, 0, 0, 0, 0]]).T),
+        (binarize(THREE), np.array([[0, 1, 0, 0, 0]]).T),
+        (binarize(FOUR),  np.array([[0, 0, 1, 0, 0]]).T),
+        (binarize(FIVE),  np.array([[0, 0, 0, 1, 0]]).T),
+        (binarize(SEVEN), np.array([[0, 0, 0, 0, 1]]).T),
+    ]
+
 if __name__ == '__main__':
     main()
