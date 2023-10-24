@@ -41,11 +41,11 @@ class Perceptron:
             nabla_q += q
             nabla_t += t
 
-        self.v -= self.alpha/n * nabla_v
-        self.q -= self.alpha/n * nabla_q
+        self.v -= self.alpha * nabla_v/n
+        self.q -= self.alpha * nabla_q/n
 
-        self.w -= self.beta/n * nabla_w
-        self.t -= self.beta/n * nabla_t
+        self.w -= self.beta * nabla_w/n
+        self.t -= self.beta * nabla_t/n
 
     def back_propagation(self, x, y):
         current_g = sigmoid(np.dot(self.v, x) + self.q)
