@@ -1,3 +1,4 @@
+from ideal import TWO, THREE, FOUR, FIVE, SEVEN
 from network import Perceptron
 
 def main():
