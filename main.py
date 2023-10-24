@@ -1,9 +1,12 @@
+import cv2 as cv
 import numpy as np
 
 from ideal import TWO, THREE, FOUR, FIVE, SEVEN
 from network import Perceptron
 
 EPSILON = 0.001
+
+CHANCE = 0.1
 
 def noise(image, chance):
     """
@@ -32,6 +35,8 @@ def main():
     """
     The main function of the program.
     """
+    np.set_printoptions(precision=2, suppress=True)
+
     percept = Perceptron(36, 20, 5)
 
     training_data = [
@@ -63,7 +68,57 @@ def main():
 
         epochs += 1
 
-    print(f'epochs = {epochs}')
+    print(f'epochs: {epochs}')
+
+    test_data = [
+        noise(TWO, CHANCE),   noise(TWO, CHANCE),   noise(TWO, CHANCE),
+        noise(THREE, CHANCE), noise(THREE, CHANCE), noise(THREE, CHANCE),
+        noise(FOUR, CHANCE),  noise(FOUR, CHANCE),  noise(FOUR, CHANCE),
+        noise(FIVE, CHANCE),  noise(FIVE, CHANCE),  noise(FIVE, CHANCE),
+        noise(SEVEN, CHANCE), noise(SEVEN, CHANCE), noise(SEVEN, CHANCE),
+    ]
+
+    for i, test in enumerate(test_data):
+        print(f'{i+1:2d}: {100*percept.feed_forward(binarize(test).T).T}')
+
+    for i, image in enumerate(test_data):
+        cv.imshow(f'Test {i+1}', cv.resize(
+            image,
+            (256, 256),
+            interpolation=cv.INTER_NEAREST
+        ))
+
+    cv.imshow('2', cv.resize(
+        TWO,
+        (256, 256),
+        interpolation=cv.INTER_NEAREST
+    ))
+
+    cv.imshow('3', cv.resize(
+        THREE,
+        (256, 256),
+        interpolation=cv.INTER_NEAREST
+    ))
+
+    cv.imshow('4', cv.resize(
+        FOUR,
+        (256, 256),
+        interpolation=cv.INTER_NEAREST
+    ))
+
+    cv.imshow('5', cv.resize(
+        FIVE,
+        (256, 256),
+        interpolation=cv.INTER_NEAREST
+    ))
+
+    cv.imshow('7', cv.resize(
+        SEVEN,
+        (256, 256),
+        interpolation=cv.INTER_NEAREST
+    ))
+
+    cv.waitKey(0)
 
 if __name__ == '__main__':
     main()
