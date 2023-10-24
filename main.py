@@ -3,16 +3,12 @@ import numpy as np
 from ideal import TWO, THREE, FOUR, FIVE, SEVEN
 from network import Perceptron
 
-def noize(image, delta):
+def noize(image, chance):
     result = image.copy()
 
     for i, x in np.ndenumerate(result):
-        if x == 255:
-            x -= np.random.randint(0, delta)
-        else:
-            x += np.random.randint(0, delta)
-
-        result[i] = x
+        if np.random.random() < chance:
+            result[i] = 255-x
 
     return result
 
