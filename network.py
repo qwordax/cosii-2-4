@@ -1,6 +1,10 @@
 import numpy as np
 
 def sigmoid(x, deriv=False):
+    """
+    Represents the non-linear function where `deriv` computes the derivative
+    of this function.
+    """
     if deriv is True:
         return sigmoid(x) / (1-sigmoid(x))
 
