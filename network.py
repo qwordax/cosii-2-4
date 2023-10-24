@@ -9,9 +9,9 @@ def sigmoid(x, deriv=False):
 class Perceptron:
     def __init__(self, n, h, m, alpha=0.1, beta=0.1):
         self.v = 2*np.random.random((h, n)) - 1
-        self.w = 2*np.random.random((m, h)) - 1
-
         self.q = 2*np.random.random((h, 1)) - 1
+
+        self.w = 2*np.random.random((m, h)) - 1
         self.t = 2*np.random.random((m, 1)) - 1
 
         self.alpha = alpha
@@ -24,22 +24,22 @@ class Perceptron:
         return y
 
     def gradient_descent(self, training_data):
-        nabla_v = np.zeros(self.v.shape)
         nabla_w = np.zeros(self.w.shape)
-
-        nabla_q = np.zeros(self.q.shape)
         nabla_t = np.zeros(self.t.shape)
+
+        nabla_v = np.zeros(self.v.shape)
+        nabla_q = np.zeros(self.q.shape)
 
         n = len(training_data)
 
         for x, y in training_data:
-            v, w, q, t = self.back_propagation(x, y)
+            w, t, v, q = self.back_propagation(x, y)
+
+            nabla_w += w
+            nabla_t += t
 
             nabla_v += v
-            nabla_w += w
-
             nabla_q += q
-            nabla_t += t
 
         self.w -= self.alpha * nabla_w/n
         self.t -= self.alpha * nabla_t/n
@@ -61,4 +61,4 @@ class Perceptron:
         nabla_v = np.dot(delta_g, x.T)
         nabla_q = delta_g
 
-        return (nabla_v, nabla_w, nabla_q, nabla_t)
+        return (nabla_w, nabla_t, nabla_v, nabla_q)
