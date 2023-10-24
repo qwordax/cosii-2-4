@@ -18,17 +18,17 @@ def binarize(image):
     for i, x in np.ndenumerate(result):
         result[i] = (255-x) / 255
 
-    return result.reshape((result.size, 1))
+    return result.reshape((1, result.size))
 
 def main():
     percept = Perceptron(36, 20, 5)
 
     training_data = [
-        (binarize(TWO),   np.array([[1, 0, 0, 0, 0]]).T),
-        (binarize(THREE), np.array([[0, 1, 0, 0, 0]]).T),
-        (binarize(FOUR),  np.array([[0, 0, 1, 0, 0]]).T),
-        (binarize(FIVE),  np.array([[0, 0, 0, 1, 0]]).T),
-        (binarize(SEVEN), np.array([[0, 0, 0, 0, 1]]).T),
+        (binarize(TWO).T,   np.array([[1, 0, 0, 0, 0]]).T),
+        (binarize(THREE).T, np.array([[0, 1, 0, 0, 0]]).T),
+        (binarize(FOUR).T,  np.array([[0, 0, 1, 0, 0]]).T),
+        (binarize(FIVE).T,  np.array([[0, 0, 0, 1, 0]]).T),
+        (binarize(SEVEN).T, np.array([[0, 0, 0, 0, 1]]).T),
     ]
 
 if __name__ == '__main__':
