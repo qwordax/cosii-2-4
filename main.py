@@ -35,7 +35,9 @@ def main():
     """
     The main function of the program.
     """
-    np.set_printoptions(precision=2, suppress=True)
+    np.set_printoptions(formatter={
+        'float': lambda x: f'{x:6.2f}'
+    })
 
     percept = Perceptron(36, 20, 5)
 
